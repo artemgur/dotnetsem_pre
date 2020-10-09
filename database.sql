@@ -10,7 +10,10 @@ CREATE TABLE products(
     id SERIAL PRIMARY KEY,
     name VARCHAR(30) NOT NULL UNIQUE,
     price INTEGER NOT NULL,
-    type PRODUCT_TYPE
+	rating SMALLINT CHECK (1 <= rating && rating <= 10), --there is a postgres extension with 1-byte number type, switch to it later?
+    reviews_number INTEGER DEFAULT 0,-- CHECK reviews_number >= -1,
+	manufacturer VARCHAR(30), --make it a foreign key to a separate table if we will do filter by manufacturer
+	type PRODUCT_TYPE
     --link to table with specs
 );
 
