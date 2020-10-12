@@ -41,3 +41,5 @@ CREATE TABLE reviews( --or maybe store reviews in array in products table?
     FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE, --we don't need reviews for deleted products
     FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE RESTRICT --we don't care if user who wrote review is deleted
 );
+CREATE INDEX reviews_product_index ON reviews(product_id);
+CREATE INDEX reviews_customer_index ON reviews(customer_id);
