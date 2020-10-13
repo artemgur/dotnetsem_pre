@@ -1,0 +1,12 @@
+﻿Product:
+        public ProductType ProductType { get; set; }
+        public SpecsTable SpecsTable { get; set; }
+        
+                        entity.Property(e => e.ProductType).HasColumnName("product_type");
+                        entity.Property(e => e.SpecsTable).HasColumnName("specs_table");
+Order:
+        public OrderStatus OrderStatus { get; set; }
+Desktop:
+        public OSDesktop OSDesktop { get; set; }
+Mobile: 
+        public OSMobile OSMobile { get; set; }
