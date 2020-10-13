@@ -7,7 +7,6 @@
 
     <ItemGroup>
         <Compile Include="Program.fs" />
-        <Compile Include="Enums.fs" />
         <Compile Include="Database.fs" />
     </ItemGroup>
 

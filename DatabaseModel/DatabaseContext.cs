@@ -1,4 +1,5 @@
 ﻿using System;
+using DatabaseCSharp;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -6,13 +7,18 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace DatabaseModel
 {
-    public partial class de1qv1gqr08u0sContext : DbContext
+    public partial class DatabaseContext : DbContext
     {
-        public de1qv1gqr08u0sContext()
+        public DatabaseContext()
         {
         }
 
-        public de1qv1gqr08u0sContext(DbContextOptions<de1qv1gqr08u0sContext> options)
+        static DatabaseContext()
+        {
+            EnumFixer.MapEnums();
+        }
+
+        public DatabaseContext(DbContextOptions<DatabaseContext> options)
             : base(options)
         {
         }
@@ -103,6 +109,8 @@ namespace DatabaseModel
                 entity.Property(e => e.SizeY).HasColumnName("size_y");
 
                 entity.Property(e => e.SizeZ).HasColumnName("size_z");
+                
+                entity.Property(e => e.OSDesktop).HasColumnName("os_desktop");
             });
 
             modelBuilder.Entity<Mobile>(entity =>
@@ -146,6 +154,8 @@ namespace DatabaseModel
                 entity.Property(e => e.SizeY).HasColumnName("size_y");
 
                 entity.Property(e => e.SizeZ).HasColumnName("size_z");
+                
+                entity.Property(e => e.OSMobile).HasColumnName("os_mobile");
             });
 
             modelBuilder.Entity<Order>(entity =>
@@ -161,6 +171,8 @@ namespace DatabaseModel
                 entity.Property(e => e.Products)
                     .IsRequired()
                     .HasColumnName("products");
+                
+                entity.Property(e => e.OrderStatus).HasColumnName("order_status");
             });
 
             modelBuilder.Entity<Product>(entity =>

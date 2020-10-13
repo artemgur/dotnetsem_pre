@@ -10,7 +10,7 @@ namespace DatabaseCSharp
 		/// <summary>
 		/// DO NOT USE! For database model initialization only. Intended to be used only in database context static constructor
 		/// </summary>
-		internal static void MapEnums()
+		public static void MapEnums()
 		{
 			NpgsqlConnection.GlobalTypeMapper.MapEnum<ProductType>("product_type", translator);
 			NpgsqlConnection.GlobalTypeMapper.MapEnum<OrderStatus>("order_status", translator);
