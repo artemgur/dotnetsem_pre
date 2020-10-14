@@ -1,11 +1,11 @@
-CREATE TYPE PRODUCT_TYPE AS ENUM ('computer', 'mobile', 'tv', 'camera'); --add goods types here
+CREATE TYPE PRODUCT_TYPE AS ENUM ('computer', 'smartphone', 'tv', 'camera'); --add goods types here
 CREATE TYPE ORDER_STATUS AS ENUM ('not_sent', 'sent', 'delivered'); --something else?
 CREATE TYPE SPECS_TABLE AS ENUM ('Mobile', 'Desktop'); --table where specs are stored, PascalCase only!
 
-CREATE TYPE SHOPPING_CART AS ( --TODO create indexes
-    product_id INTEGER,
-    quantity INTEGER
-);
+-- CREATE TYPE SHOPPING_CART AS ( --TODO create indexes
+--     product_id INTEGER,
+--     quantity INTEGER
+-- );
 
 CREATE TABLE products(
     id SERIAL PRIMARY KEY,
@@ -23,17 +23,35 @@ CREATE TABLE customers(
     id SERIAL PRIMARY KEY,
     login VARCHAR(20) NOT NULL UNIQUE,
     password VARCHAR(40) NOT NULL, --hashed
-    email TEXT NOT NULL UNIQUE,
-    shopping_cart SHOPPING_CART[]
+    email TEXT NOT NULL UNIQUE
+--     shopping_cart SHOPPING_CART[]
 );
+
+CREATE TABLE shopping_cart(
+    customer_id INTEGER,
+    product_id INTEGER,
+    quantity INTEGER,
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
+    FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE
+);
+CREATE INDEX shopping_cart_customer_index ON shopping_cart(customer_id);
 
 CREATE TABLE orders(
     id SERIAL PRIMARY KEY,
     customer_id INTEGER NOT NULL,
     status ORDER_STATUS NOT NULL,
-    products INTEGER[] NOT NULL,
+--     products INTEGER[] NOT NULL,
     cost INTEGER NOT NULL --will be auto evaluated on server on adding order
 );
+
+CREATE TABLE orders_products(
+    order_id INTEGER,
+    product_id INTEGER,
+    quantity INTEGER,
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
+);
+CREATE INDEX orders_products_order_index ON orders_products(order_id);
 
 CREATE TABLE reviews( --or maybe store reviews in array in products table?
     product_id INTEGER,
@@ -45,3 +63,5 @@ CREATE TABLE reviews( --or maybe store reviews in array in products table?
 );
 CREATE INDEX reviews_product_index ON reviews(product_id);
 CREATE INDEX reviews_customer_index ON reviews(customer_id);
+
+INSERT INTO products (name, manufacturer, price, specs_table, type) VALUES ('Blackview BV9600pro', 'Blackview', 20000, 'Mobile', 'smartphone')

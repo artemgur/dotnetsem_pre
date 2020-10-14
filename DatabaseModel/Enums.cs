@@ -3,7 +3,7 @@
 	public enum ProductType
 	{
 		Computer,
-		Mobile,
+		Smartphone,
 		TV,
 		Camera
 	}

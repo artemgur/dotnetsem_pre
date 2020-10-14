@@ -1,4 +1,5 @@
 ﻿using System;
+using DatabaseModel;
 
 namespace DatabaseCSharp
 {
@@ -6,7 +7,8 @@ namespace DatabaseCSharp
 	{
 		static void Main(string[] args)
 		{
-			Console.WriteLine("Hello World!");
+			var context = new DatabaseContext();
+			context.Customers
 		}
 	}
 }
