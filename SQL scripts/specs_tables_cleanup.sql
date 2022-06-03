@@ -1,0 +1,3 @@
+DROP TABLE desktop, mobile;
+
+DROP TYPE OS_DESKTOP, OS_MOBILE;
